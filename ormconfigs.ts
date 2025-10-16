@@ -1,5 +1,6 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { config } from './config/config';
+import { User } from 'src/api/user/entities/user.entity';
 
 interface DatabaseConfig {
   host: string;
@@ -20,6 +21,7 @@ const dbConfig: DatabaseConfig = {
 export const options: DataSourceOptions = {
   type: 'postgres',
   ...dbConfig,
+  entities: [User],
   migrationsTableName: 'migrations',
   migrations: [],
   synchronize: config.app.nodeEnv !== 'production',

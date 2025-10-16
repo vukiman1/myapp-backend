@@ -2,7 +2,7 @@ import { BaseEntity } from '@app/base';
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity } from 'typeorm';
 
-@Entity()
+@Entity('users')
 export class User extends BaseEntity {
   @ApiProperty({
     description: 'Email',
