@@ -8,6 +8,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - ${PORT}:${PORT}
-    env_file: ./.env.production
+    env_file: ./.env.${NODE_ENV}
     volumes:
       - ./uploads:/app/uploads

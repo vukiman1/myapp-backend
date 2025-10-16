@@ -22,4 +22,4 @@ async function bootstrap() {
   });
   await app.listen(process.env.PORT ?? 8989);
 }
-bootstrap();
+bootstrap().catch(console.error);
