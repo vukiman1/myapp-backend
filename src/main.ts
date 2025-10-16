@@ -1,25 +1,22 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { SwaggerModule } from '@nestjs/swagger';
-import { DocumentBuilder } from '@nestjs/swagger';
+import { AppModule } from 'src/app/app.module';
 import cookieParser from 'cookie-parser';
+import { config } from '../config/config';
+import { useSwagger } from './app/app.swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const config = new DocumentBuilder()
-    .setTitle('API')
-    .setDescription('The API description')
-    .setVersion('1.0')
-    .addTag('API')
-    .build();
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('/swagger', app, documentFactory);
+  const app = await NestFactory.create(AppModule, {
+    snapshot: true,
+  });
+
   app.setGlobalPrefix('api/v1');
   app.use(cookieParser());
+
+  useSwagger(app);
   app.enableCors({
     origin: true,
     credentials: true,
   });
-  await app.listen(process.env.PORT ?? 8989);
+  await app.listen(Number(config.app.port));
 }
 bootstrap().catch(console.error);

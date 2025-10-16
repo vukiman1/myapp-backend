@@ -1,7 +1,13 @@
+import dotenv from 'dotenv';
+
+dotenv.config({
+  path: ['.env', '.env.local', '.env.production'],
+});
+
 export const config = {
   app: {
     nodeEnv: process.env.NODE_ENV || 'local',
-    port: process.env.PORT || 8000,
+    port: Number(process.env.PORT) || 8000,
   },
   db: {
     host: process.env.DB_HOST || 'localhost',

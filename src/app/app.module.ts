@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from 'src/api/auth/auth.module';
+// import { config } from 'config/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './modules/auth/auth.module';
-import { DatabaseModule } from '../libs/database/database.module';
-import { config } from '../config/config';
+import { DatabaseModule } from '@app/database';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [`.env.${config.app.nodeEnv}`],
+      envFilePath: [`.env.local`],
       expandVariables: true,
     }),
     DatabaseModule,

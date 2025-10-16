@@ -20,6 +20,32 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@app/base": [
+        "libs/base/src"
+      ],
+      "@app/base/*": [
+        "libs/base/src/*"
+      ],
+      "@app/database": [
+        "libs/database/src"
+      ],
+      "@app/database/*": [
+        "libs/database/src/*"
+      ],
+      "@app/helpers": [
+        "libs/helpers/src"
+      ],
+      "@app/helpers/*": [
+        "libs/helpers/src/*"
+      ],
+      "@app/my-library": [
+        "libs/my-library/src"
+      ],
+      "@app/my-library/*": [
+        "libs/my-library/src/*"
+      ]
+    }
   }
 }
