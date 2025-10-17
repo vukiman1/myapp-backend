@@ -1,14 +1,9 @@
 import { BaseEntity } from '@app/base';
-import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity } from 'typeorm';
-
+import { Exclude } from 'class-transformer';
+import { BeforeInsert, Column, Entity } from 'typeorm';
+import * as argon2 from 'argon2';
 @Entity('users')
 export class User extends BaseEntity {
-  @ApiProperty({
-    description: 'Email',
-    example: 'test@example.com',
-    required: true,
-  })
   @Column({
     unique: true,
     nullable: false,
@@ -18,11 +13,12 @@ export class User extends BaseEntity {
   })
   email!: string;
 
-  @ApiProperty({
-    description: 'Password',
-    example: 'password',
-    required: true,
-  })
   @Column({ nullable: false, type: 'varchar', length: 255, name: 'password' })
+  @Exclude()
   password!: string;
+
+  @BeforeInsert()
+  async beforeInsert() {
+    this.password = await argon2.hash(this.password);
+  }
 }
