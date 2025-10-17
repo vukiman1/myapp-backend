@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import * as argon2 from 'argon2';
 import { AppDataSource } from '../../ormconfigs';
 import { User } from '../../src/api/user/entities/user.entity';
+import { Roles } from '../../libs/enum/src/role.enum';
 
 export async function seedUsers() {
   const userRepository = AppDataSource.getRepository(User);
@@ -9,8 +10,15 @@ export async function seedUsers() {
   await userRepository.query('TRUNCATE TABLE "users" CASCADE');
   const users = Array.from({ length: 10 }, () => ({
     email: faker.internet.email(),
+    role: Roles.USER,
     password: '123456',
   }));
+
+  users.push({
+    email: 'admin@gmail.com',
+    role: Roles.SUPER_ADMIN,
+    password: '123456',
+  });
 
   // Hash passwords manually since bulk save doesn't trigger @BeforeInsert
   const hashedUsers = await Promise.all(

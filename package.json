@@ -38,6 +38,7 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
     "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
@@ -53,6 +54,7 @@
     "@types/config": "^3.3.5",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
+    "@types/lodash": "^4.17.20",
     "@types/node": "^22.10.7",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.18.0",
@@ -92,7 +94,9 @@
     ],
     "moduleNameMapper": {
       "^@app/base(|/.*)$": "<rootDir>/libs/base/src/$1",
+      "^@app/constants(|/.*)$": "<rootDir>/libs/constants/src/$1",
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
+      "^@app/enum(|/.*)$": "<rootDir>/libs/enum/src/$1",
       "^@app/helpers(|/.*)$": "<rootDir>/libs/helpers/src/$1",
       "^@app/my-library(|/.*)$": "<rootDir>/libs/my-library/src/$1"
     }

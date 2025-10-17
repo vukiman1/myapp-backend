@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { getQueryBuilder } from '@app/helpers/queryBuilder';
 import { NotFoundException } from '@nestjs/common';
 import {
   DeepPartial,
@@ -9,7 +10,6 @@ import {
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { PaginationDto } from './base.dto';
 import { BaseEntity } from './base.entity';
-import { getQueryBuilder } from '@app/helpers';
 
 export abstract class BaseService<Entity extends BaseEntity> {
   abstract name: string;
@@ -89,11 +89,8 @@ export abstract class BaseService<Entity extends BaseEntity> {
   async update(entity: Entity, data: QueryDeepPartialEntity<Entity>) {
     const keys = Object.keys(data);
     for (let i = 0; i < keys.length; i++) {
-      const key = keys[i] as keyof typeof data & keyof Entity;
-      if (key in entity && data[key] !== undefined) {
-        // @ts-ignore
-        entity[key] = data[key];
-      }
+      const key = keys[i];
+      entity[key] = data[key];
     }
     return entity.save();
   }

@@ -28,11 +28,23 @@
       "@app/base/*": [
         "libs/base/src/*"
       ],
+      "@app/constants": [
+        "libs/constants/src"
+      ],
+      "@app/constants/*": [
+        "libs/constants/src/*"
+      ],
       "@app/database": [
         "libs/database/src"
       ],
       "@app/database/*": [
         "libs/database/src/*"
+      ],
+      "@app/enum": [
+        "libs/enum/src"
+      ],
+      "@app/enum/*": [
+        "libs/enum/src/*"
       ],
       "@app/helpers": [
         "libs/helpers/src"

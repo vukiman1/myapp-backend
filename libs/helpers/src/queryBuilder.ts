@@ -1,4 +1,4 @@
-import { BaseEntity, PaginationDto } from '@app/base';
+import { BaseEntity } from '@app/base';
 import {
   FindOptionsOrder,
   FindOptionsWhere,
@@ -14,25 +14,18 @@ export function getQueryBuilder<Entity extends BaseEntity>(
   order?: FindOptionsOrder<Entity>,
   ...relations: string[]
 ) {
-  const { skip, take } = PaginationToQuery(query as PaginationDto);
-  delete (query as PaginationDto).limit;
-  delete (query as PaginationDto).page;
+  const { skip, take } = PaginationToQuery(query);
+  delete query.limit;
+  delete query.page;
   let queryBuilder = repo.createQueryBuilder('entity');
   queryBuilder = addRelations(queryBuilder, relations);
   if (where) {
     queryBuilder = addWhere(queryBuilder, where);
-    queryBuilder = addQuery(
-      queryBuilder,
-      where,
-      query as Record<string, string>,
-    );
+    queryBuilder = addQuery(queryBuilder, where, query);
   }
   queryBuilder.skip(skip).take(take);
   for (const orderKey in order) {
-    queryBuilder.orderBy(
-      `entity.${orderKey}`,
-      order[orderKey] as 'ASC' | 'DESC',
-    );
+    queryBuilder.orderBy(`entity.${orderKey}`, order[orderKey] as any);
   }
   return queryBuilder;
 }
@@ -61,14 +54,14 @@ function addWhere<Entity extends BaseEntity>(
     if (i === 0) {
       whereMethod = 'where';
     }
-    queryBuilder[whereMethod as 'andWhere' | 'where'](queryString);
+    queryBuilder[whereMethod](queryString);
   }
   return queryBuilder;
 }
 function addQuery<Entity extends BaseEntity>(
   queryBuilder: SelectQueryBuilder<Entity>,
   where: FindOptionsWhere<Entity> | FindOptionsWhere<Entity>[],
-  query: Record<string, string>,
+  query: any,
 ) {
   const whereKeys = Object.keys(where);
   const queryKeys = Object.keys(query);
@@ -83,7 +76,7 @@ function addQuery<Entity extends BaseEntity>(
     if (queryObjects.length > 1) {
       queryString = `${key} LIKE '%${value}%'`;
     }
-    queryBuilder[whereMethod as 'andWhere' | 'where'](queryString);
+    queryBuilder[whereMethod](queryString);
   });
   return queryBuilder;
 }

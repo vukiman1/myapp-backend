@@ -1,6 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { config } from './config/config';
 import { User } from 'src/api/user/entities/user.entity';
+import { Products } from 'src/api/products/entities/products.entities';
 
 interface DatabaseConfig {
   host: string;
@@ -21,9 +22,9 @@ const dbConfig: DatabaseConfig = {
 export const options: DataSourceOptions = {
   type: 'postgres',
   ...dbConfig,
-  entities: [User],
+  entities: [User, Products],
   migrationsTableName: 'migrations',
-  migrations: [],
+  migrations: ['src/migrations/*.ts'],
   synchronize: config.app.nodeEnv !== 'production',
 };
 export const AppDataSource = new DataSource(options);
