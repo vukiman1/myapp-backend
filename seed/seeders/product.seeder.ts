@@ -12,8 +12,8 @@ export async function seedProducts() {
   const products = Array.from({ length: 10 }, () => ({
     title: faker.commerce.productName(),
     description: faker.commerce.productDescription(),
-    price: Number(faker.commerce.price()),
-    type: ProductType.DISPLAY,
+    price: faker.number.int({ min: 1, max: 20 }) * 250000,
+    type: faker.helpers.arrayElement(Object.values(ProductType)),
   }));
 
   const savedProducts = await productRepository.save(

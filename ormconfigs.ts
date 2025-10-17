@@ -24,7 +24,7 @@ export const options: DataSourceOptions = {
   ...dbConfig,
   entities: [User, Products],
   migrationsTableName: 'migrations',
-  migrations: ['src/migrations/*.ts'],
+  migrations: ['migrations/*.ts'],
   synchronize: config.app.nodeEnv !== 'production',
 };
 export const AppDataSource = new DataSource(options);
