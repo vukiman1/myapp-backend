@@ -3,6 +3,7 @@ import { config } from './config/config';
 import { User } from 'src/api/user/entities/user.entity';
 import { Products } from 'src/api/products/entities/products.entities';
 
+//ok
 interface DatabaseConfig {
   host: string;
   port: number;
