@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from '@app/database';
 import { UserModule } from 'src/api/user/user.module';
+import { ChatModule } from 'src/api/chat/chat.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { UserModule } from 'src/api/user/user.module';
     DatabaseModule,
     AuthModule,
     UserModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],
