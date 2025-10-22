@@ -1,16 +1,30 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { LoginDto } from './dto/login.dto';
+import { User } from '@app/decorators/user.decorator';
+import { BaseEntity } from 'typeorm';
 
 @Controller('auth')
-export class AuthController {
+export class AuthController<Entity extends BaseEntity> {
   constructor(private readonly authService: AuthService) {}
   @Get('me')
   findAll() {
     return this.authService.findAll();
   }
 
-  // @Post('login')
-  // create(@Body() loginDto: LoginDto) {
-  //   return this.authService.create(loginDto);
-  // }
+  @Post('login')
+  @HttpCode(200)
+  // @ApiLogin(userType)
+  // @UseGuards(AuthGuard(strategyKey))
+  async login(
+    @Body() _login: LoginDto, // Load to Swagger
+    @User() userData: Entity,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    console.log(userData, response);
+    return {
+      message: 'Login successful',
+    };
+    // return this.authService.login(userData);
+  }
 }

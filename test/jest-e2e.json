@@ -17,10 +17,14 @@
     "@app/constants/(.*)": "<rootDir>/../libs/constants/src/$1",
     "@app/database": "<rootDir>/../libs/database/src",
     "@app/database/(.*)": "<rootDir>/../libs/database/src/$1",
+    "@app/decorators": "<rootDir>/../libs/decorators/src",
+    "@app/decorators/(.*)": "<rootDir>/../libs/decorators/src/$1",
     "@app/enum": "<rootDir>/../libs/enum/src",
     "@app/enum/(.*)": "<rootDir>/../libs/enum/src/$1",
     "@app/helpers": "<rootDir>/../libs/helpers/src",
     "@app/helpers/(.*)": "<rootDir>/../libs/helpers/src/$1",
+    "@app/jwt": "<rootDir>/../libs/jwt/src",
+    "@app/jwt/(.*)": "<rootDir>/../libs/jwt/src/$1",
     "@app/my-library": "<rootDir>/../libs/my-library/src",
     "@app/my-library/(.*)": "<rootDir>/../libs/my-library/src/$1"
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import * as argon2 from 'argon2';
-import { LoginDto } from './dto/login.dto';
+// import { User } from '../user/entities/user.entity';
+// import { SetCookieRFToken } from '@app/helpers/setCookieRFToken';
+import { Response } from 'express';
 @Injectable()
 export class AuthService {
   findAll() {
@@ -8,19 +9,22 @@ export class AuthService {
       message: 'Auth me',
     };
   }
-  async login(loginDto: LoginDto) {
-    // Ví dụ verify password
-    const hashedPassword = '$argon2id$v=19$m=65536,t=3,p=4$...'; // từ database
-    const plainPassword = loginDto.password; // từ user input
+  // login(user: User, response: Response) {
+  //   const { id } = user;
+  //   const payload = { id };
 
-    const isPasswordValid = await argon2.verify(hashedPassword, plainPassword);
+  // Generate accessToken
+  // const accessToken = this.jwtService.signJwt(payload);
+  // const refreshToken = this.jwtService.signJwt(payload, true);
 
-    if (!isPasswordValid) {
-      throw new Error('Invalid credentials');
-    }
+  //Cache token
+  // this.redisService.setRefreshToken(id, refreshToken);
+  // this.redisService.setAccessToken(id, accessToken);
 
-    return {
-      message: 'Login successful',
-    };
-  }
+  //Encrypt cookie
+  // const encryptId = this.cryptoService.encryptData(id);
+  // SetCookieRFToken(response, encryptId);
+  // const result = { user, accessToken };
+  // return result;
+  // }
 }

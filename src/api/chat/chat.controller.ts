@@ -1,15 +1,12 @@
-import { Controller } from '@nestjs/common';
-import { ChatService } from './chat.service';
-import { SubscribeMessage } from '@nestjs/websockets';
-import { MessageBody } from '@nestjs/websockets';
+import { Controller, Get } from '@nestjs/common';
+import { ConversationService } from './servies/conversation.service';
 
 @Controller('chat')
 export class ChatController {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(private readonly conversationService: ConversationService) {}
 
-  @SubscribeMessage('events')
-  handleEvent(@MessageBody() data: string) {
-    console.log('handleEvent', data);
-    return data;
+  @Get('conversations')
+  getAllConversations() {
+    return this.conversationService.getAll();
   }
 }

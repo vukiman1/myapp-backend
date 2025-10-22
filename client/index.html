@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to MyApp Backend</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 3rem;
+        text-align: center;
+        max-width: 600px;
+        width: 90%;
+      }
+
+      .logo {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+      }
+
+      .subtitle {
+        color: #666;
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .feature {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+      }
+
+      .feature h3 {
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature p {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .links {
+        margin-top: 2rem;
+      }
+
+      .btn {
+        display: inline-block;
+        background: #667eea;
+        color: white;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 8px;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background: #5a6fd8;
+        transform: translateY(-2px);
+      }
+
+      .btn.secondary {
+        background: #6c757d;
+      }
+
+      .btn.secondary:hover {
+        background: #5a6268;
+      }
+
+      .status {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        border-radius: 8px;
+        color: #155724;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>MyApp Backend</h1>
+      <p class="subtitle">Your NestJS application is running successfully!</p>
+      <div class="links">
+        <a href="/api/v1" class="btn">API Endpoints</a>
+        <a href="/docs" class="btn color-success">Swagger Docs</a>
+        <a href="/chat.html" class="btn primary">Chat</a>
+      </div>
+
+      <div class="status">✅ Server is running on port 8099</div>
+    </div>
+  </body>
+</html>

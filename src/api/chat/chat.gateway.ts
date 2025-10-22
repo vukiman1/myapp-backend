@@ -5,16 +5,19 @@ import {
   WebSocketGateway,
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
-import { ChatService } from './chat.service';
+import { ConversationService } from './servies/conversation.service';
 
 interface RoomData {
   conversationId: string;
+  users: string[];
+  roomName: string;
 }
 
 interface MessageData {
   conversationId: string;
-  content: string;
+  message: string;
   userId?: string;
+  username?: string;
 }
 
 @WebSocketGateway({
@@ -22,7 +25,7 @@ interface MessageData {
   namespace: '/chat',
 })
 export class ChatGateway {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(private readonly conversationService: ConversationService) {}
 
   @SubscribeMessage('room:join')
   async onJoinRoom(

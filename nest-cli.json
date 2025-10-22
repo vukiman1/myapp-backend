@@ -41,6 +41,15 @@
         "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
     },
+    "decorators": {
+      "type": "library",
+      "root": "libs/decorators",
+      "entryFile": "index",
+      "sourceRoot": "libs/decorators/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/decorators/tsconfig.lib.json"
+      }
+    },
     "enum": {
       "type": "library",
       "root": "libs/enum",
@@ -57,6 +66,15 @@
       "sourceRoot": "libs/helpers/src",
       "compilerOptions": {
         "tsConfigPath": "libs/helpers/tsconfig.lib.json"
+      }
+    },
+    "jwt": {
+      "type": "library",
+      "root": "libs/jwt",
+      "entryFile": "index",
+      "sourceRoot": "libs/jwt/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/jwt/tsconfig.lib.json"
       }
     }
   }

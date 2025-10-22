@@ -1,49 +1,74 @@
 # My App Backend
 
-Ứng dụng backend được xây dựng bằng NestJS framework với TypeScript.
+Ứng dụng backend được xây dựng bằng NestJS framework với TypeScript, hỗ trợ authentication, real-time chat, và quản lý sản phẩm.
 
-## 🚀 Tính năng
+## 🏗️ Kiến trúc dự án
 
-- **Authentication Module**: Hệ thống xác thực người dùng
-- **API Documentation**: Tự động tạo docs với Swagger UI
-- **CORS Support**: Hỗ trợ Cross-Origin Resource Sharing
-- **Cookie Parser**: Xử lý cookies
-- **Validation**: Validation dữ liệu với class-validator
-- **Testing**: Unit tests và E2E tests
-
-## 🛠️ Công nghệ sử dụng
-
-- **Framework**: NestJS 11.x
-- **Language**: TypeScript
-- **Package Manager**: pnpm
-- **Testing**: Jest
-- **Documentation**: Swagger/OpenAPI
-- **Linting**: ESLint + Prettier
-
-## 📋 Yêu cầu hệ thống
-
-- Node.js >= 18.x
-- pnpm >= 8.x
+- **Framework**: NestJS với TypeScript
+- **Database**: PostgreSQL với TypeORM
+- **Authentication**: JWT với Argon2 hashing
+- **Real-time**: Socket.IO cho chat
+- **API Documentation**: Swagger/OpenAPI
+- **Package Manager**: pnpm với monorepo structure
 
 ## 🔧 Cài đặt
 
-1. Clone repository:
+### Yêu cầu hệ thống
+
+- Node.js >= 18
+- PostgreSQL >= 13
+- pnpm >= 8
+
+### 1. Clone repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/vukiman1/myapp-backend
 cd myapp-backend
 ```
 
-2. Cài đặt dependencies:
+### 2. Cài đặt dependencies
 
 ```bash
 pnpm install
 ```
 
-3. Tạo file environment (nếu cần):
+### 3. Cấu hình database
+
+Tạo database PostgreSQL và cấu hình trong file `.env.local`:
 
 ```bash
-cp .env.example .env
+cp .env.example .env.local
+```
+
+Cập nhật các biến môi trường trong `.env.local`:
+
+```env
+# Database
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+DB_DATABASE=myapp
+
+# Application
+PORT=8000
+NODE_ENV=local
+
+# JWT
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=7d
+```
+
+### 4. Chạy migrations
+
+```bash
+pnpm run migration:run
+```
+
+### 5. Seed data (tùy chọn)
+
+```bash
+pnpm run seed
 ```
 
 ## 🚀 Chạy ứng dụng
@@ -52,19 +77,7 @@ cp .env.example .env
 
 ```bash
 # Chạy với watch mode
-pnpm run dev
-# hoặc
 pnpm run start:dev
-```
-
-### Production mode
-
-```bash
-# Build ứng dụng
-pnpm run build
-
-# Chạy production
-pnpm run start:prod
 ```
 
 ### Debug mode
@@ -78,7 +91,7 @@ pnpm run start:debug
 Sau khi chạy ứng dụng, truy cập Swagger UI tại:
 
 ```
-http://localhost:8000/swagger
+http://localhost:8000/docs
 ```
 
 ## 🧪 Testing
@@ -110,18 +123,55 @@ pnpm run format
 ## 📁 Cấu trúc dự án
 
 ```
-src/
-├── modules/           # Các modules chức năng
-│   └── auth/         # Module xác thực
-│       ├── dto/      # Data Transfer Objects
-│       ├── entities/ # Database entities
-│       ├── auth.controller.ts
-│       ├── auth.service.ts
-│       └── auth.module.ts
-├── app.controller.ts  # Controller chính
-├── app.module.ts     # Module chính
-├── app.service.ts    # Service chính
-└── main.ts          # Entry point
+myapp-backend/
+├── src/
+│   ├── api/                    # API modules
+│   │   ├── auth/              # Authentication module
+│   │   │   ├── dto/           # Data Transfer Objects
+│   │   │   ├── auth.controller.ts
+│   │   │   ├── auth.service.ts
+│   │   │   └── auth.module.ts
+│   │   ├── user/              # User management
+│   │   ├── chat/              # Real-time chat
+│   │   ├── products/          # Product management
+│   │   └── gateway/           # WebSocket gateway
+│   ├── app/                   # Core application
+│   │   ├── app.controller.ts
+│   │   ├── app.service.ts
+│   │   ├── app.module.ts
+│   │   └── app.swagger.ts
+│   ├── migrations/            # Database migrations
+│   ├── types/                 # TypeScript type definitions
+│   ├── utils/                 # Utility functions
+│   └── main.ts               # Application entry point
+├── libs/                      # Shared libraries
+│   ├── base/                 # Base classes and interfaces
+│   ├── constants/            # Application constants
+│   ├── database/             # Database configuration
+│   ├── decorators/           # Custom decorators
+│   ├── enum/                 # Enumerations
+│   ├── helpers/              # Helper functions
+│   └── jwt/                  # JWT utilities
+├── config/                   # Configuration files
+├── client/                   # Static frontend files
+├── seed/                     # Database seeding
+├── test/                     # Test files
+├── scripts/                  # Build and deployment scripts
+├── docker-compose.yaml       # Docker configuration
+├── Dockerfile               # Docker image definition
+├── ormconfigs.ts            # TypeORM configuration
+└── package.json             # Dependencies and scripts
+```
+
+## CLI cơ bản
+
+```bash
+#cài thêm library
+nest g library <library name>
+#cài thêm module
+nest g module api/<module>
+nest g controller api/<controller>
+nest g service api/<service>
 ```
 
 ## 🌐 API Endpoints
@@ -131,21 +181,112 @@ Base URL: `http://localhost:8000/api/v1`
 ### Authentication
 
 - `POST /auth/login` - Đăng nhập
-- `POST /auth/register` - Đăng ký (nếu có)
-- `POST /auth/logout` - Đăng xuất (nếu có)
+- `POST /auth/register` - Đăng ký tài khoản
+- `POST /auth/logout` - Đăng xuất
+- `GET /auth/profile` - Lấy thông tin profile
+
+### User Management
+
+- `GET /user` - Lấy danh sách users
+- `GET /user/:id` - Lấy thông tin user theo ID
+- `PUT /user/:id` - Cập nhật thông tin user
+- `DELETE /user/:id` - Xóa user
+
+### Products
+
+- `GET /products` - Lấy danh sách sản phẩm
+- `GET /products/:id` - Lấy thông tin sản phẩm
+- `POST /products` - Tạo sản phẩm mới
+- `PUT /products/:id` - Cập nhật sản phẩm
+- `DELETE /products/:id` - Xóa sản phẩm
+
+### Chat (WebSocket)
+
+- `ws://localhost:8000` - Kết nối WebSocket
+- Events: `join_room`, `leave_room`, `send_message`, `typing`
+
+## 🐳 Docker
+
+### Chạy với Docker Compose
+
+```bash
+# Build và chạy
+docker-compose up --build
+
+# Chạy ở background
+docker-compose up -d
+
+# Dừng services
+docker-compose down
+```
+
+### Environment Variables cho Docker
+
+Tạo file `.env.local` hoặc `.env.production`:
+
+```env
+NODE_ENV=production
+PORT=8000
+DB_HOST=postgres
+DB_PORT=5432
+DB_USERNAME=admin
+DB_PASSWORD=admin
+DB_DATABASE=myapp
+JWT_SECRET=your_jwt_secret
+```
+
+## 🔧 Development
+
+### Tạo migration mới
+
+```bash
+# Tạo migration
+pnpm run migration:generate --name=CreateUserTable
+
+# Chạy migration
+pnpm run migration:run
+
+# Revert migration
+pnpm run migration:revert
+```
+
+### Tạo module mới
+
+```bash
+# Tạo module
+nest g module api/module-name
+
+# Tạo controller
+nest g controller api/module-name
+
+# Tạo service
+nest g service api/module-name
+
+# Tạo library
+nest g library libs/library-name
+```
 
 ## ⚙️ Configuration
 
-Ứng dụng chạy trên port `8000` mặc định. Có thể thay đổi bằng biến môi trường `PORT`.
+### Environment Variables
 
-## 🤝 Đóng góp
+| Variable         | Description       | Default     |
+| ---------------- | ----------------- | ----------- |
+| `PORT`           | Port ứng dụng     | `8000`      |
+| `NODE_ENV`       | Environment       | `local`     |
+| `DB_HOST`        | Database host     | `localhost` |
+| `DB_PORT`        | Database port     | `5432`      |
+| `DB_USERNAME`    | Database username | `admin`     |
+| `DB_PASSWORD`    | Database password | `admin`     |
+| `DB_DATABASE`    | Database name     | `myapp`     |
+| `JWT_SECRET`     | JWT secret key    | Required    |
+| `JWT_EXPIRES_IN` | JWT expiration    | `7d`        |
 
-1. Fork repository
-2. Tạo feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add some amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Tạo Pull Request
+### Database Configuration
 
-## 📝 License
+Database được cấu hình trong `ormconfigs.ts` với TypeORM. Hỗ trợ:
 
-Dự án này sử dụng license UNLICENSED.
+- PostgreSQL
+- Migrations
+- Entity synchronization (chỉ trong development)
+- Connection pooling

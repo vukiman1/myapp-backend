@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { AuthModule } from 'src/api/auth/auth.module';
 // import { config } from 'config/config';
 import { AppController } from './app.controller';
@@ -14,6 +16,9 @@ import { ChatModule } from 'src/api/chat/chat.module';
       isGlobal: true,
       envFilePath: [`.env.local`],
       expandVariables: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'client'),
     }),
     DatabaseModule,
     AuthModule,
