@@ -8,12 +8,12 @@ services:
     volumes:
       - ./uploads:/app/uploads
     networks:
-      - cloudflared
+      - dokploy-network
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.myappbackend.rule=Host(`myappbackend.kiman.site`)'
       - 'traefik.http.routers.myappbackend.entrypoints=web'
       - 'traefik.http.routers.myappbackend.service=api@internal'
 networks:
-  cloudflared:
+  dokploy-network:
     external: true
