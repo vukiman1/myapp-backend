@@ -16,7 +16,6 @@ services:
       - 'traefik.enable=true'
       - 'traefik.http.routers.myappbackend.rule=Host(`myappbackend.kiman.site`)'
       - 'traefik.http.routers.myappbackend.entrypoints=web'
-      - 'traefik.http.routers.myappbackend.service=api@internal'
       - 'traefik.http.services.myappbackend.loadbalancer.server.port=3000'
 
 networks:
