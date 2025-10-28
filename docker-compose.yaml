@@ -9,6 +9,7 @@ services:
       - ./uploads:/app/uploads
     networks:
       - dokploy-network
+      - cloudflared
     ports:
       - 3000
     labels:
@@ -20,4 +21,6 @@ services:
 
 networks:
   dokploy-network:
+    external: true
+  cloudflared:
     external: true
