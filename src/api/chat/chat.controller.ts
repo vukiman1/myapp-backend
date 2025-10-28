@@ -4,7 +4,7 @@ import { ConversationService } from './servies/conversation.service';
 @Controller('chat')
 export class ChatController {
   constructor(private readonly conversationService: ConversationService) {}
-  //coment
+  //coment2
   @Get('conversations')
   getAllConversations() {
     return this.conversationService.getAll();
