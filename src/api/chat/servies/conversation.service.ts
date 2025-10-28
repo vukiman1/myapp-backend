@@ -14,4 +14,8 @@ export class ConversationService extends BaseService<Conversations> {
   ) {
     super(conversationRepo);
   }
+
+  async test() {
+    return 'test';
+  }
 }
