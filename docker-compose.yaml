@@ -1,27 +1,15 @@
 services:
   server:
     container_name: myapp-backend
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: andreyz122/myapp-backend:latest
     env_file: ./.env.production
     volumes:
       - ./uploads:/app/uploads
     networks:
-      - dokploy-network
       - cloudflared
     labels:
-      - 'traefik.enable=true'
-      - traefik.docker.network=dokploy-network
-      - 'traefik.http.routers.myappbackend.rule=Host(`myappbackend.kiman.site`)'
-      - 'traefik.http.routers.myappbackend.entrypoints=web'
-      - traefik.http.routers.myappbackend.service=myappbackend-svc
-      - 'traefik.http.services.myappbackend.loadbalancer.server.port=3000'
-    placement:
-      constraints:
-        - node.role == manager
+      - 'com.centurylinklabs.watchtower.enable=true'
+
 networks:
-  dokploy-network:
-    external: true
   cloudflared:
     external: true
