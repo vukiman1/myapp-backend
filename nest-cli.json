@@ -23,6 +23,15 @@
         "tsConfigPath": "libs/base/tsconfig.lib.json"
       }
     },
+    "config": {
+      "type": "library",
+      "root": "libs/config",
+      "entryFile": "index",
+      "sourceRoot": "libs/config/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/config/tsconfig.lib.json"
+      }
+    },
     "constants": {
       "type": "library",
       "root": "libs/constants",

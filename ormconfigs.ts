@@ -1,5 +1,5 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { config } from './config/config';
+import configuration from '@app/config';
 import { UserEntity } from 'src/api/user/entities/user.entity';
 import { ProductsEntity } from 'src/api/products/entities/products.entities';
 import { MessageEntity } from 'src/api/chat/entities/message.entity';
@@ -16,11 +16,11 @@ interface DatabaseConfig {
 }
 
 const dbConfig: DatabaseConfig = {
-  host: config.db.host,
-  port: parseInt(config.db.port),
-  username: config.db.username,
-  password: config.db.password,
-  database: config.db.database,
+  host: configuration().database.host,
+  port: Number(configuration().database.port),
+  username: configuration().database.username,
+  password: configuration().database.password,
+  database: configuration().database.database,
 };
 
 export const options: DataSourceOptions = {
@@ -35,6 +35,6 @@ export const options: DataSourceOptions = {
   ],
   migrationsTableName: 'migrations',
   migrations: ['migrations/*.ts'],
-  synchronize: config.app.nodeEnv !== 'production',
+  synchronize: configuration().app.nodeEnv !== 'production',
 };
 export const AppDataSource = new DataSource(options);

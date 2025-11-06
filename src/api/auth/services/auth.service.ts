@@ -5,20 +5,24 @@ import { Response } from 'express';
 import { RegisterDto } from '../dto/register.dto';
 import { CryptoService } from '@app/crypto';
 import { UserEntity } from 'src/api/user/entities/user.entity';
+import { JwtService } from '@app/jwt';
 @Injectable()
 export class AuthService {
-  constructor(private readonly cryptoService: CryptoService) {}
+  constructor(
+    private readonly cryptoService: CryptoService,
+    private readonly jwtService: JwtService,
+  ) {}
   findAll() {
     return {
       message: 'Auth me',
     };
   }
-  login(user: UserEntity, _response: Response) {
+  async login(user: UserEntity, _response: Response) {
     const { id } = user;
     const payload = { id };
     // // Generate accessToken
-    // const accessToken = this.jwtService.signJwt(payload);
-    // const refreshToken = this.jwtService.signJwt(payload, true);
+    const accessToken = await this.jwtService.signJwt(payload);
+    const refreshToken = await this.jwtService.signJwt(payload, true);
 
     // // Cache token
     // this.redisService.setRefreshToken(id, refreshToken);
@@ -27,11 +31,8 @@ export class AuthService {
     // // Encrypt cookie
     // const encryptId = this.cryptoService.encryptData(id);
     // SetCookieRFToken(response, encryptId);
-    // const result = { user, accessToken };
-    return {
-      payload,
-      user,
-    };
+    const result = { user, accessToken, refreshToken };
+    return result;
   }
 
   async register(register: RegisterDto) {

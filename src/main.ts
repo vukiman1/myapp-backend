@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from 'src/app/app.module';
 import cookieParser from 'cookie-parser';
-import { config } from '../config/config';
+import configuration from '@app/config';
 import { useSwagger } from './app/app.swagger';
 
 async function bootstrap() {
@@ -17,6 +17,6 @@ async function bootstrap() {
     origin: true,
     credentials: true,
   });
-  await app.listen(Number(config.app.port));
+  await app.listen(configuration().app.port);
 }
 bootstrap().catch(console.error);

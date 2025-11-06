@@ -11,12 +11,14 @@ import { UserModule } from 'src/api/user/user.module';
 import { ChatModule } from 'src/api/chat/chat.module';
 import { CryptoModule } from '@app/crypto';
 import { JwtModule } from '@app/jwt';
+import configuration from '@app/config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      envFilePath: [`.env.${process.env.NODE_ENV}`, '.env'],
+      load: [configuration],
       expandVariables: true,
     }),
     ServeStaticModule.forRoot({

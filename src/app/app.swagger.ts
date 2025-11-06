@@ -1,6 +1,6 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { config as configType } from '../../config/config';
+import configuration from '@app/config';
 
 interface SwaggerOperation {
   get(key: 'method'): string;
@@ -10,7 +10,7 @@ interface SwaggerOperation {
 
 export function useSwagger(app: INestApplication) {
   const logger = new Logger('Swagger');
-  const port = configType.app.port;
+  const port = configuration().app.port;
   const path = 'docs';
   const config = new DocumentBuilder()
     .setTitle('NestJS Example')

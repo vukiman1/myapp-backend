@@ -28,6 +28,12 @@
       "@app/base/*": [
         "libs/base/src/*"
       ],
+      "@app/config": [
+        "libs/config/src"
+      ],
+      "@app/config/*": [
+        "libs/config/src/*"
+      ],
       "@app/constants": [
         "libs/constants/src"
       ],

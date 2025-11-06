@@ -13,6 +13,8 @@
   "moduleNameMapper": {
     "@app/base": "<rootDir>/../libs/base/src",
     "@app/base/(.*)": "<rootDir>/../libs/base/src/$1",
+    "@app/config": "<rootDir>/../libs/config/src",
+    "@app/config/(.*)": "<rootDir>/../libs/config/src/$1",
     "@app/constants": "<rootDir>/../libs/constants/src",
     "@app/constants/(.*)": "<rootDir>/../libs/constants/src/$1",
     "@app/crypto": "<rootDir>/../libs/crypto/src",
