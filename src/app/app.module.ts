@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 import { DatabaseModule } from '@app/database';
 import { UserModule } from 'src/api/user/user.module';
 import { ChatModule } from 'src/api/chat/chat.module';
+import { CryptoModule } from '@app/crypto';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ChatModule } from 'src/api/chat/chat.module';
       rootPath: join(process.cwd(), 'client'),
     }),
     DatabaseModule,
+    CryptoModule,
     AuthModule,
     UserModule,
     ChatModule,

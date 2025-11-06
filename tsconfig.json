@@ -34,6 +34,12 @@
       "@app/constants/*": [
         "libs/constants/src/*"
       ],
+      "@app/crypto": [
+        "libs/crypto/src"
+      ],
+      "@app/crypto/*": [
+        "libs/crypto/src/*"
+      ],
       "@app/database": [
         "libs/database/src"
       ],

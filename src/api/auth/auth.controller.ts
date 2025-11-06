@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { User } from '@app/decorators/user.decorator';
 import { BaseEntity } from 'typeorm';
+import { RegisterDto } from './dto/register.dto';
 
 @Controller('auth')
 export class AuthController<Entity extends BaseEntity> {
@@ -26,5 +27,14 @@ export class AuthController<Entity extends BaseEntity> {
       message: 'Login successful',
     };
     // return this.authService.login(userData);
+  }
+
+  @Post('register')
+  async register(@Body() register: RegisterDto) {
+    console.log(register);
+    return {
+      message: 'Register successful',
+      data: register,
+    };
   }
 }

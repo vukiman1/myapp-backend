@@ -104,6 +104,7 @@
     "moduleNameMapper": {
       "^@app/base(|/.*)$": "<rootDir>/libs/base/src/$1",
       "^@app/constants(|/.*)$": "<rootDir>/libs/constants/src/$1",
+      "^@app/crypto(|/.*)$": "<rootDir>/libs/crypto/src/$1",
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
       "^@app/decorators(|/.*)$": "<rootDir>/libs/decorators/src/$1",
       "^@app/enum(|/.*)$": "<rootDir>/libs/enum/src/$1",

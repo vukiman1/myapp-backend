@@ -15,6 +15,8 @@
     "@app/base/(.*)": "<rootDir>/../libs/base/src/$1",
     "@app/constants": "<rootDir>/../libs/constants/src",
     "@app/constants/(.*)": "<rootDir>/../libs/constants/src/$1",
+    "@app/crypto": "<rootDir>/../libs/crypto/src",
+    "@app/crypto/(.*)": "<rootDir>/../libs/crypto/src/$1",
     "@app/database": "<rootDir>/../libs/database/src",
     "@app/database/(.*)": "<rootDir>/../libs/database/src/$1",
     "@app/decorators": "<rootDir>/../libs/decorators/src",

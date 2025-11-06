@@ -2,8 +2,11 @@ import { Injectable } from '@nestjs/common';
 // import { User } from '../user/entities/user.entity';
 // import { SetCookieRFToken } from '@app/helpers/setCookieRFToken';
 import { Response } from 'express';
+import { RegisterDto } from './dto/register.dto';
+import { CryptoService } from '@app/crypto';
 @Injectable()
 export class AuthService {
+  constructor(private readonly cryptoService: CryptoService) {}
   findAll() {
     return {
       message: 'Auth me',
@@ -27,4 +30,11 @@ export class AuthService {
   // const result = { user, accessToken };
   // return result;
   // }
+
+  async register(register: RegisterDto) {
+    return {
+      message: 'Register successful',
+      data: register,
+    };
+  }
 }
