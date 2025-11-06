@@ -10,18 +10,20 @@ import { DatabaseModule } from '@app/database';
 import { UserModule } from 'src/api/user/user.module';
 import { ChatModule } from 'src/api/chat/chat.module';
 import { CryptoModule } from '@app/crypto';
+import { JwtModule } from '@app/jwt';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [`.env.local`],
+      envFilePath: `.env.${process.env.NODE_ENV}`,
       expandVariables: true,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'client'),
     }),
     DatabaseModule,
+    JwtModule,
     CryptoModule,
     AuthModule,
     UserModule,

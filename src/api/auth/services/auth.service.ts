@@ -13,7 +13,7 @@ export class AuthService {
       message: 'Auth me',
     };
   }
-  login(user: UserEntity, response: Response) {
+  login(user: UserEntity, _response: Response) {
     const { id } = user;
     const payload = { id };
     // // Generate accessToken
@@ -30,7 +30,6 @@ export class AuthService {
     // const result = { user, accessToken };
     return {
       payload,
-      response,
       user,
     };
   }

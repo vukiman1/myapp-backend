@@ -29,18 +29,65 @@ src/api/{module}/
 ### 2. Shared Libraries (libs/)
 
 - `@app/base`: Base classes và interfaces
+  - `base.entity.ts`: Base entity với id, createdAt, updatedAt
+  - `base.controller.ts`: Base controller pattern
+  - `base.service.ts`: Base service pattern
+  - `base.dto.ts`: Base DTO classes
+  - `base.swagger.ts`: Swagger base configurations
 - `@app/constants`: Application constants
-- `@app/database`: Database configuration
-- `@app/decorators`: Custom decorators (User, Roles, etc.)
+- `@app/crypto`: Cryptography utilities (Argon2)
+- `@app/database`: Database configuration và module
+- `@app/decorators`: Custom decorators
+  - `user.decorator.ts`: @User() decorator để lấy user từ request
 - `@app/enum`: Enumerations
+  - `role.enum.ts`: User roles (Admin, User, etc.)
+  - `product.enum.ts`: Product related enums
+  - `chat.enum.ts`: Chat related enums
 - `@app/helpers`: Utility functions
+  - `paginationToQuery.ts`: Pagination helpers
+  - `queryBuilder.ts`: Query builder utilities
+  - `setCookieRFToken.ts`: Cookie management cho refresh token
 - `@app/jwt`: JWT utilities
+  - `jwt.service.ts`: JWT token generation và validation
+  - `jwt.payload.ts`: JWT payload interface
 
 ### 3. Configuration
 
 - Environment variables được load từ `.env.local`
 - Database config trong `config/config.ts`
 - TypeORM config trong `ormconfigs.ts`
+- Global prefix: `api/v1` (được set trong `main.ts`)
+- CORS enabled với credentials support
+- Cookie parser được sử dụng cho authentication
+- Swagger documentation tại `/docs`
+
+### 4. API Modules hiện tại
+
+- **Auth Module** (`src/api/auth/`)
+  - Controllers: `auth.user.controller.ts`, `auth.base.controller.ts`
+  - Services: `auth.service.ts`
+  - Strategies: JWT, Local authentication
+  - DTOs: Login, Register, etc.
+
+- **User Module** (`src/api/user/`)
+  - Entity: `UserEntity` với email, password (hashed), role
+  - Controller: `user.controller.ts`
+  - Service: `user.service.ts`
+  - Tests: Unit tests và controller tests
+
+- **Chat Module** (`src/api/chat/`)
+  - Gateway: `chat.gateway.ts` (WebSocket)
+  - Entities: `ConversationsEntity`, `ConversationsMembersEntity`, `MessageEntity`
+  - Services: `conversation.service.ts`
+  - Events: `room:join`, `room:leave`, `message:send`, `typing`
+
+- **Products Module** (`src/api/products/`)
+  - Entity: `ProductsEntity`
+  - Controller: `products.controller.ts`
+  - Service: `products.service.ts`
+
+- **Gateway Module** (`src/api/gateway/`)
+  - Wrapper module cho WebSocket gateway
 
 ## 🗄️ Database Schema
 
@@ -145,10 +192,11 @@ export class CreateModuleDto {
 
 ### WebSocket Events:
 
-- `join_room`: Tham gia phòng chat
-- `leave_room`: Rời phòng chat
-- `send_message`: Gửi tin nhắn
-- `typing`: Typing indicator
+- `room:join`: Tham gia phòng chat với conversationId
+- `room:leave`: Rời phòng chat
+- `message:send`: Gửi tin nhắn
+- `message:new`: Event nhận tin nhắn mới
+- `typing`: Typing indicator (auto timeout sau 1s)
 
 ## 📝 Code Standards
 

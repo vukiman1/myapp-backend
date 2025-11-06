@@ -9,7 +9,7 @@ import { UserEntity } from 'src/api/user/entities/user.entity';
 @Controller('/auth')
 export class AuthUserController extends AuthBaseController<UserEntity>(
   'user',
-  StrategyKey.JWT.USER,
+  StrategyKey.LOCAL.USER,
 ) {
   constructor(public readonly authService: AuthService) {
     super(authService);
