@@ -13,7 +13,7 @@ import { Exclude } from 'class-transformer';
 
 @Entity('products')
 @Unique(['title'])
-export class Products {
+export class ProductsEntity {
   @PrimaryGeneratedColumn('increment')
   id!: number;
 

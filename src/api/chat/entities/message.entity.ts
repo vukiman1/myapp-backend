@@ -1,18 +1,18 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { Conversations } from './conversations.entity';
+import { ConversationsEntity } from './conversations.entity';
 import { BaseEntity } from '@app/base';
 
 @Entity('messages')
-export class Message extends BaseEntity {
+export class MessageEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 255 })
   content!: string;
 
-  @ManyToOne(() => Conversations, (conversation) => conversation.id, {
+  @ManyToOne(() => ConversationsEntity, (conversation) => conversation.id, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'reply_to_id' })
-  replyToId!: Message;
+  replyToId!: MessageEntity;
 
   @JoinColumn({ name: 'conversation_id' })
-  conversation!: Conversations;
+  conversation!: ConversationsEntity;
 }

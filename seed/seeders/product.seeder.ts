@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { AppDataSource } from '../../ormconfigs';
-import { Products } from '../../src/api/products/entities/products.entities';
+import { ProductsEntity } from '../../src/api/products/entities/products.entities';
 import { ProductType } from '@app/enum';
 import { DeepPartial } from 'typeorm';
 
 export async function seedProducts() {
-  const productRepository = AppDataSource.getRepository(Products);
+  const productRepository = AppDataSource.getRepository(ProductsEntity);
 
   await productRepository.query('TRUNCATE TABLE "products" CASCADE');
 
@@ -17,7 +17,7 @@ export async function seedProducts() {
   }));
 
   const savedProducts = await productRepository.save(
-    products as DeepPartial<Products>[],
+    products as DeepPartial<ProductsEntity>[],
   );
 
   console.table(savedProducts.map((p) => ({ id: p.id, title: p.title })));

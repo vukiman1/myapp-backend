@@ -5,7 +5,7 @@ import { BeforeInsert, Column, Entity } from 'typeorm';
 import * as argon2 from 'argon2';
 
 @Entity('users')
-export class User extends BaseEntity {
+export class UserEntity extends BaseEntity {
   @Column({
     unique: true,
     nullable: false,

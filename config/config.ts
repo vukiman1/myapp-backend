@@ -16,4 +16,7 @@ export const config = {
     password: process.env.DB_PASSWORD || 'admin',
     database: process.env.DB_DATABASE || 'myapp',
   },
+  jwt: {
+    secret: process.env.SECRET_JWT || 'secret',
+  },
 };
