@@ -15,12 +15,15 @@ interface DatabaseConfig {
   database: string;
 }
 
+const { host, port, username, password, database } = configuration()
+  .database as DatabaseConfig;
+
 const dbConfig: DatabaseConfig = {
-  host: configuration().database.host,
-  port: Number(configuration().database.port),
-  username: configuration().database.username,
-  password: configuration().database.password,
-  database: configuration().database.database,
+  host,
+  port: Number(port),
+  username,
+  password,
+  database,
 };
 
 export const options: DataSourceOptions = {

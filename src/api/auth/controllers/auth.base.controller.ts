@@ -24,6 +24,7 @@ export const AuthBaseController = <Entity extends UserEntity>(
       @User() userData: Entity,
       @Res({ passthrough: true }) response: Response,
     ) {
+      console.log(userData);
       return this.authService.login(userData, response);
     }
 

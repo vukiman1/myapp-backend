@@ -23,6 +23,7 @@ export class UserEntity extends BaseEntity {
     type: 'enum',
     enum: Roles,
     nullable: false,
+    default: Roles.USER,
   })
   role!: Roles;
 

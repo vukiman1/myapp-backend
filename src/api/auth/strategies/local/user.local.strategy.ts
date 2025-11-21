@@ -19,8 +19,10 @@ export class UserLocalStrategy extends PassportStrategy(
   }
 
   async validate(email: string, password: string): Promise<UserEntity> {
+    console.log(email, password);
     const where = { email };
     const user = await this.userService.getOneOrFail(where);
+    console.log(user);
     const comparePassword = await argon2.verify(user.password, password);
     if (!comparePassword) {
       throw new UnauthorizedException('Invalid password');
