@@ -12,6 +12,7 @@ import { ChatModule } from 'src/api/chat/chat.module';
 import { CryptoModule } from '@app/crypto';
 import { JwtModule } from '@app/jwt';
 import configuration from '@app/config';
+import { ProductsModule } from 'src/api/products/products.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import configuration from '@app/config';
     AuthModule,
     UserModule,
     ChatModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

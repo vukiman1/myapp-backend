@@ -1,22 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  Unique,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, Index } from 'typeorm';
 import { ProductType } from '@app/enum';
-import { ApiHideProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
+import { BaseEntity } from '@app/base/base.entity';
 
 @Entity('products')
-@Unique(['title'])
-export class ProductsEntity {
-  @PrimaryGeneratedColumn('increment')
-  id!: number;
-
+@Index('fulltext_index', ['title', 'description'], { fulltext: true })
+export class ProductsEntity extends BaseEntity {
   @Column()
   title!: string;
 
@@ -32,14 +20,4 @@ export class ProductsEntity {
     nullable: false,
   })
   type!: ProductType;
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt!: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt!: Date;
-
-  @DeleteDateColumn({ name: 'deleted_at' })
-  @Exclude()
-  @ApiHideProperty()
-  deletedAt!: Date;
 }

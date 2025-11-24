@@ -1,10 +1,12 @@
 import { BaseEntity } from '@app/base';
 import { Roles } from '@app/enum';
 import { Exclude } from 'class-transformer';
-import { BeforeInsert, Column, Entity } from 'typeorm';
+import { BeforeInsert, Column, Entity, Index, Unique } from 'typeorm';
 import * as argon2 from 'argon2';
 
 @Entity('users')
+@Unique(['email'])
+@Index('fulltext_index', ['email'], { fulltext: true })
 export class UserEntity extends BaseEntity {
   @Column({
     unique: true,
